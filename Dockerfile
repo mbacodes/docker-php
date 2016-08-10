@@ -62,7 +62,7 @@ ADD etc/supervisor/apache.conf /etc/supervisor/conf.d/apache.conf
 ########################################################################################################################
 ## apache modules
 # Enable mod_rewrite
-RUN a2enmod rewrite
+RUN a2enmod rewrite ssl
 
 ########################################################################################################################
 ## php configs
