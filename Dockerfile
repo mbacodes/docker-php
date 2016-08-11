@@ -1,6 +1,6 @@
 ########################################################################################################################
 ## PHP
-FROM php:7.0.9-apache
+FROM php:7.0.9-fpm
 
 RUN sed -i "s/httpredir.debian.org/mirror.unitedcolo.de/" /etc/apt/sources.list
 
@@ -57,12 +57,7 @@ RUN apt-get update \
 ########################################################################################################################
 ## supervisor
 ADD etc/supervisor/sshd.conf /etc/supervisor/conf.d/sshd.conf
-ADD etc/supervisor/apache.conf /etc/supervisor/conf.d/apache.conf
-
-########################################################################################################################
-## apache modules
-# Enable mod_rewrite
-RUN a2enmod rewrite
+ADD etc/supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 
 ########################################################################################################################
 ## php configs
@@ -72,7 +67,6 @@ ADD etc/php/imagick.ini /usr/local/etc/php/conf.d/50-imagick.ini
 
 
 EXPOSE 22
-EXPOSE 80
-EXPOSE 443
+EXPOSE 9000
 
 CMD ["/usr/bin/supervisord", "-n"]
