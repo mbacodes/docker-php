@@ -55,16 +55,28 @@ E.g. `/etc/php/opcache.ini` will be used as config for the opcache extension.
 #
 # How to use this image.
 
-This image includes an SSH-Server to use the PHP-Interpreter during development as remote interpreter in PHPStorm
+This image includes an SSH-Server to use the PHP-Interpreter during development as remote interpreter in PHPStorm.
 
 The default login is:
 
 User: root
 PW: root
 
+The image will use supervisor to run ssh and php-fpm.
 
-The image will use supervisor to run ssh and php-fpm
+```bash
+docker run -p 80:80 -p 443:443 -v <YOUR_CODE_DIRECTORY>:/var/www/html mbacodes/php:7.0.9-fpm
+```
 
+## php ini settings
+
+Custom ini settings can be mounted to `/usr/local/etc/php/conf.d/` and will be automatically included.
+
+E.g. 
+
+```bash
+docker run -p 80:80 -p 443:443 -v <YOUR_CODE_DIRECTORY>:/var/www/html -v <YOUR_CUSTOM_INI_FILES_DIR>/custom.ini:/usr/local/etc/php/conf.d/99-custom.ini mbacodes/php:latest
+```
 
 ## Xdebug
 
@@ -93,6 +105,13 @@ e.g in the `docker-compose.yml`
 This launchd script will ensure that your Docker environment on your Mac will have 10.254.254.254 as an alias on your loopback device (127.0.0.1).  The command being run is `ifconfig lo0 alias 10.254.254.254`
 
 #### Installation
+
+Take a look at [Ralph Schindlers - Docker (Mac) De-facto Standard Host Address Alias](https://gist.github.com/ralphschindler/535dc5916ccbd06f53c1b0ee5a868c93)  
+Short version below.
+
+```
+You may want to change the IP-address if it's already in use on your system.
+```
 
 Copy/Paste the following in terminal with sudo (must be root as the target directory is owned by root)...
 
