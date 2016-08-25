@@ -1,6 +1,6 @@
 ########################################################################################################################
 ## PHP
-FROM php:7.0.9-apache
+FROM php:7.0.10-apache
 
 RUN sed -i "s/httpredir.debian.org/mirror.unitedcolo.de/" /etc/apt/sources.list
 
@@ -45,9 +45,9 @@ RUN pecl install xdebug && pecl install imagick
 ENV SSH_ROOT_PASSWORD root
 
 # Install OpenSSH to use this php as remote interpreter in IDE's
-ADD bin/set-root-password.sh /tmp/set-root-password.sh
-RUN chmod a+x /tmp/set-root-password.sh  && /tmp/set-root-password.sh
-RUN apt-get update \
+ADD bin/set-root-password.sh /usr/local/bin/set-root-password.sh
+RUN chmod a+x /usr/local/bin/set-root-password.sh  \
+    && /usr/local/bin/set-root-password.shapt-get update \
     && apt-get install -y openssh-server supervisor \
     && mkdir -p /var/run/sshd \
     && sed -i 's/^PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config \
@@ -58,6 +58,7 @@ RUN apt-get update \
 ## supervisor
 ADD etc/supervisor/sshd.conf /etc/supervisor/conf.d/sshd.conf
 ADD etc/supervisor/apache.conf /etc/supervisor/conf.d/apache.conf
+ADD etc/supervisor/rootpassword.conf /etc/supervisor/conf.d/rootpassword.conf
 
 ########################################################################################################################
 ## apache modules
