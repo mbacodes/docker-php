@@ -47,7 +47,8 @@ ENV SSH_ROOT_PASSWORD root
 # Install OpenSSH to use this php as remote interpreter in IDE's
 ADD bin/set-root-password.sh /usr/local/bin/set-root-password.sh
 RUN chmod a+x /usr/local/bin/set-root-password.sh  \
-    && /usr/local/bin/set-root-password.shapt-get update \
+    && /usr/local/bin/set-root-password.sh \
+    && apt-get update \
     && apt-get install -y openssh-server supervisor \
     && mkdir -p /var/run/sshd \
     && sed -i 's/^PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config \
