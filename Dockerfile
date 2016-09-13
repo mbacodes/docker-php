@@ -1,6 +1,6 @@
 ########################################################################################################################
 ## PHP
-FROM php:5.6.24-apache
+FROM php:5.6.25-apache
 
 RUN sed -i "s/httpredir.debian.org/mirror.unitedcolo.de/" /etc/apt/sources.list
 
