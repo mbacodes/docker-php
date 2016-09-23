@@ -59,7 +59,6 @@ RUN chmod a+x /usr/local/bin/set-root-password.sh  \
 ## supervisor
 ADD etc/supervisor/sshd.conf /etc/supervisor/conf.d/sshd.conf
 ADD etc/supervisor/apache.conf /etc/supervisor/conf.d/apache.conf
-ADD etc/supervisor/rootpassword.conf /etc/supervisor/conf.d/rootpassword.conf
 
 ########################################################################################################################
 ## apache modules
