@@ -59,7 +59,6 @@ RUN chmod a+x /usr/local/bin/set-root-password.sh  \
 ## supervisor
 ADD etc/supervisor/sshd.conf /etc/supervisor/conf.d/sshd.conf
 ADD etc/supervisor/apache.conf /etc/supervisor/conf.d/apache.conf
-ADD etc/supervisor/rootpassword.conf /etc/supervisor/conf.d/rootpassword.conf
 
 ########################################################################################################################
 ## apache modules
@@ -68,7 +67,6 @@ RUN a2enmod rewrite ssl
 
 ########################################################################################################################
 ## php configs
-ADD etc/php/opcache.ini /usr/local/etc/php/conf.d/10-opcache.ini
 ADD etc/php/xdebug.ini /usr/local/etc/php/conf.d/40-xdebug.ini
 ADD etc/php/imagick.ini /usr/local/etc/php/conf.d/50-imagick.ini
 
