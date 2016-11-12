@@ -20,6 +20,7 @@ RUN apt-get update && \
         sqlite3 \
         libsqlite3-dev \
         libldap2-dev \
+        ssl-cert \
     && ln -f -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-configure mysqli \
