@@ -60,7 +60,6 @@ RUN chmod a+x /usr/local/bin/set-root-password.sh  \
 ADD etc/supervisor/sshd.conf /etc/supervisor/conf.d/sshd.conf
 ADD etc/supervisor/apache.conf /etc/supervisor/conf.d/apache.conf
 
-
 ########################################################################################################################
 ## php configs
 ADD etc/php/opcache.ini /usr/local/etc/php/conf.d/10-opcache.ini
@@ -76,6 +75,16 @@ RUN a2ensite default-ssl
 
 RUN ln -sf /dev/stdout /var/log/apache2/access.log
 RUN ln -sf /dev/stderr /var/log/apache2/error.log
+
+########################################################################################################################
+## composer
+ADD bin/setup-composer.sh /tmp/setup-composer.sh
+
+RUN apt-get update \
+    && apt-get install -y wget \
+    && chmod a+x /tmp/setup-composer.sh \
+    && /tmp/setup-composer.sh \
+    && rm -f /tmp/setup-composer.sh
 
 EXPOSE 22
 EXPOSE 80
