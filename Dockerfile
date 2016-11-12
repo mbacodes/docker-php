@@ -72,6 +72,15 @@ RUN a2ensite default-ssl
 ADD etc/php/xdebug.ini /usr/local/etc/php/conf.d/40-xdebug.ini
 ADD etc/php/imagick.ini /usr/local/etc/php/conf.d/50-imagick.ini
 
+########################################################################################################################
+## composer
+ADD bin/setup-composer.sh /tmp/setup-composer.sh
+
+RUN apt-get update \
+    && apt-get install -y wget \
+    && chmod a+x /tmp/setup-composer.sh \
+    && /tmp/setup-composer.sh \
+    && rm -f /tmp/setup-composer.sh
 
 EXPOSE 22
 EXPOSE 80
