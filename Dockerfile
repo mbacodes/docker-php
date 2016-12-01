@@ -1,6 +1,6 @@
 ########################################################################################################################
 ## PHP
-FROM php:7.0.12-apache
+FROM docker-hub.kochan.de/php:7.0.12-apache
 
 RUN sed -i "s/httpredir.debian.org/mirror.unitedcolo.de/" /etc/apt/sources.list
 
