@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <basedir>${project.build.directory}</basedir>
+        <image.name>php</image.name>
+        <image.namespace>nh</image.namespace>
+    </properties>
+
+    <groupId>docker.netz-helden.systems</groupId>
+    <artifactId>php</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <scm>
+        <connection>scm:git:ssh://git@git.netz-helden.systems:7999/docker/php.git</connection>
+        <developerConnection>scm:git:ssh://git@git.netz-helden.systems:7999/docker/php.git</developerConnection>
+        <url>https://git.netz-helden.systems</url>
+    </scm>
+
+    <!-- HINT: dies sollte irgendwann auf unser externes nexus repo zeigen,
+         da das artifactory eigentlich nur noch als cache verwendet werden
+         sollte -->
+    <distributionManagement>
+        <repository>
+            <id>nexus-maven-proxy-repository</id>
+            <name>nexus-maven-proxy-repository</name>
+            <url>https://nexus.netz-helden.systems/repository/maven-public/</url>
+        </repository>
+    </distributionManagement>
+
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://jira.netz-helden.systems</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Bamboo</system>
+        <url>http://bamboo.netz-helden.systems/</url>
+    </ciManagement>
+
+    <build>
+        <plugins>
+            <!-- docker-maven-plugin -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.18.1</version>
+                <extensions>true</extensions>
+
+                <configuration>
+                    <useColor>false</useColor>
+                    <pullRegistry>docker-hub.netz-helden.systems</pullRegistry>
+                    <pushRegistry>docker.netz-helden.systems</pushRegistry>
+                    <images>
+                        <image>
+                            <name>${project.groupId}/${image.namespace}/${image.name}:5.6.28-apache</name>
+                            <build>
+                                <dockerFileDir>5.6.28-apache</dockerFileDir>
+                            </build>
+                        </image>
+                        <image>
+                            <name>${project.groupId}/${image.namespace}/${image.name}:7.0.13-apache</name>
+                            <build>
+                                <dockerFileDir>7.0.13-apache</dockerFileDir>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
